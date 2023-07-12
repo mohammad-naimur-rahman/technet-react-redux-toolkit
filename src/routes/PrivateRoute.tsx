@@ -15,5 +15,5 @@ export default function PrivateRoute({ children }: IProps) {
   if (!user.email && !isLoading) {
     return <Navigate to="/login" state={{ path: pathname }} />;
   }
-  return children;
+  return <>{children}</>;
 }
