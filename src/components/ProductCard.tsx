@@ -2,16 +2,20 @@ import { IProduct } from '@/types/globalTypes';
 import { toast } from './ui/use-toast';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '@/redux/hooks';
+import { addToCart } from '@/redux/features/cart/cartSlice';
 
 interface IProps {
   product: IProduct;
 }
 
 export default function ProductCard({ product }: IProps) {
+  const dispatch = useAppDispatch();
   const handleAddProduct = (product: IProduct) => {
     toast({
       description: 'Product Added',
     });
+    dispatch(addToCart(product));
   };
   return (
     <div>
@@ -24,7 +28,7 @@ export default function ProductCard({ product }: IProps) {
         <p className="text-sm">
           Availability: {product?.status ? 'In stock' : 'Out of stock'}
         </p>
-        <p className="text-sm">Price: {product?.price}</p>
+        <p className="text-sm">Price: ${product?.price}</p>
         <Button variant="default" onClick={() => handleAddProduct(product)}>
           Add to cart
         </Button>
